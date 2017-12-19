@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Codebreaker</title>
+  <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script type="text/javascript" src="/js/script.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" />
+  <link type="text/css" rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<main class="container">
+  <%= render(@template) %>
+</main>
+
+<div id="rules" class="modal">
+  <div class="modal-content">
+    <h4>Introducing Codebreaker</h4>
+    <p>Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. The code-maker, which will be played by the application we’re going to write, creates a secret code of four numbers between 1 and 6.</p>
+    <p>The code-breaker then gets some number of chances to break the code. In each turn, the code-breaker makes a guess of four numbers. The code-maker then marks the guess with up to four + and - signs.</p>
+    <p>A <code>+</code> indicates an exact match: one of the numbers in the guess is the same as one of the numbers in the secret code and in the same position.</p>
+    <p>A - indicates a number match: one of the numbers in the guess is the same as one of the numbers in the secret code but in a different position.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+  </div>
+</div>
+
+
+
+<div id="statistic" class="modal">
+  <div class="modal-content">
+    <h4>Statistic</h4>
+    <% Statistic.load.each_pair do | name, data | %>
+    <h4 class="center-align"><%= name.to_s %></h4>
+
+    <table class="bordered centered">
+      <thead>
+      <tr>
+        <th>Mode</th>
+        <th>Win</th>
+        <th>Lose</th>
+        <th>Last Game</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% data.each_pair do |mode, stat| %>
+      <% unless stat[:last_game].nil? %>
+      <tr>
+        <td><%= mode.to_s.capitalize %></td>
+        <td><%= stat[:win].to_s %></td>
+        <td><%= stat[:lose].to_s %></td>
+        <td><%= stat[:last_game].to_s %></td>
+      </tr>
+      <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+  </div>
+</div>
+
+<footer class="red lighten-2">
+  <div class="footer-copyright center-align">
+    <div class="container">
+      <p>© 2017 Vladimir Poshyvailo</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
