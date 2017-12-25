@@ -22,4 +22,6 @@ class Setting
 
   DEFAULT_CONTROLLER = 'main'.freeze
   DEFAULT_ACTION = 'index'.freeze
+
+  DEFAULT_ERROR_TEMPLATE = 'error'.freeze
 end

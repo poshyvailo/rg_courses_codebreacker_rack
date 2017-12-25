@@ -7,6 +7,7 @@ class MainController < Controller
 
   def post
     'main.post'
+    render
   end
 
 end

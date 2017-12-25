@@ -11,29 +11,69 @@ class Controller
   end
 
   def call
-    @body = send(action)
-    Rack::Response.new([@body], @status_code, @header)
+    if class_method_exist?
+      if template_file_exist?
+        @body = send(action)
+        response
+      else
+        message = 'Not found template file'
+        error message, 500
+      end
+    else
+      redirect @controller
+    end
   end
 
-  def render(template = @action, layout = Setting::DEFAULT_LAYOUT)
-    @template = render_template template.to_s
+  def render(template = @action.to_s, layout = Setting::DEFAULT_LAYOUT)
+    @template = render_template template
     render_layout layout
+  end
+
+  def error(message, code)
+    @controller = 'error'
+    @status_code = code
+    @message = message
+    @body = render 'error'
+    response
   end
 
   private
 
-  def render_layout(layout)
-    layout_path = File.join(Setting::VIEWS_PATH, layout + Setting::ERB_EXTENSION)
-    _render layout_path
+  def class_method_exist?
+    self.respond_to? @action
+  end
+
+  def template_file_exist?
+    File.exist? template_file(@action.to_s)
+  end
+
+  def response
+    Rack::Response.new([@body], @status_code, @header)
+  end
+
+  def render_layout(layout = Setting::DEFAULT_LAYOUT)
+    _render layout_file(layout)
   end
 
   def render_template(template)
-    template_path = File.join(Setting::TEMPLATE_PATH, @controller, template + Setting::ERB_EXTENSION)
-    _render template_path
+    _render template_file(template)
+  end
+
+  def layout_file(layout)
+    File.join(Setting::VIEWS_PATH, layout + Setting::ERB_EXTENSION)
+  end
+
+  def template_file(template)
+    File.join(Setting::TEMPLATE_PATH, @controller, template + Setting::ERB_EXTENSION)
   end
 
   def _render(temp)
     ERB.new(File.read(temp)).result( binding )
   end
 
+  def redirect(to = '')
+    Rack::Response.new do |response|
+      response.redirect("/#{to}")
+    end
+  end
 end

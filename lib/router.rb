@@ -8,7 +8,7 @@ class Router
       controller_class = Object.const_get("#{controller.capitalize}Controller", Class.new)
       controller_class.new(controller: controller, action: action.to_sym).call
     else
-
+      Controller.new.error('Page not found', 404)
     end
   end
 
