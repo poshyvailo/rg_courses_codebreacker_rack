@@ -1,9 +1,12 @@
-class Controller
+# frozen_string_literal: true
 
+# Controller class
+class Controller
   attr_reader :controller, :action
   attr_accessor :body, :status_code, :header
 
-  def initialize(controller: nil, action: nil)
+  def initialize(controller = nil, action = nil, env = nil)
+    @request = Rack::Request.new(env)
     @controller = controller
     @action = action
     @status_code = 200
@@ -14,10 +17,9 @@ class Controller
     if class_method_exist?
       if template_file_exist?
         @body = send(action)
-        response
+        @body.is_a?(Rack::Response) ? @body : response
       else
-        message = 'Not found template file'
-        error message, 500
+        WebError.new.server_error('Template not found')
       end
     else
       redirect @controller
@@ -29,18 +31,10 @@ class Controller
     render_layout layout
   end
 
-  def error(message, code)
-    @controller = 'error'
-    @status_code = code
-    @message = message
-    @body = render 'error'
-    response
-  end
-
   private
 
   def class_method_exist?
-    self.respond_to? @action
+    respond_to? @action
   end
 
   def template_file_exist?
@@ -64,11 +58,12 @@ class Controller
   end
 
   def template_file(template)
-    File.join(Setting::TEMPLATE_PATH, @controller, template + Setting::ERB_EXTENSION)
+    file = template + Setting::ERB_EXTENSION
+    File.join(Setting::TEMPLATE_PATH, @controller, file)
   end
 
   def _render(temp)
-    ERB.new(File.read(temp)).result( binding )
+    ERB.new(File.read(temp)).result(binding)
   end
 
   def redirect(to = '')

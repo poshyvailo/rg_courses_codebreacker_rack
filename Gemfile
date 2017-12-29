@@ -1,8 +1,15 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-ruby "2.4.2"
+source 'https://rubygems.org'
 
-gem 'rack', '~> 2.0'
+ruby '2.4.2'
+
+gem 'codebreacker',
+    git: 'https://github.com/poshyvailo/rg_courses_codebreacker',
+    branch: 'web'
+gem 'dotenv', '~> 2.2', '>= 2.2.1'
 gem 'puma'
+gem 'rack', '~> 2.0'
+
 gem 'pry'
-gem 'codebreacker', :git => 'https://github.com/poshyvailo/rg_courses_codebreacker', :branch => 'web'
+gem 'rubocop'

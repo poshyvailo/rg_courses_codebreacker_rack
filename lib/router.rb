@@ -1,14 +1,17 @@
-require 'pry'
+# frozen_string_literal: true
 
+# Router
 class Router
   def route(env)
     controller, action = parse_path env['REQUEST_PATH']
-    controller_path = File.join(Setting::CONTROLLER_PATH, "#{controller}_controller.rb")
+    file = "#{controller}_controller.rb"
+    controller_path = File.join(Setting::CONTROLLER_PATH, file)
     if File.exist? controller_path
-      controller_class = Object.const_get("#{controller.capitalize}Controller", Class.new)
-      controller_class.new(controller: controller, action: action.to_sym).call
+      class_name = "#{controller.capitalize}Controller"
+      controller_class = Object.const_get(class_name, Class.new)
+      controller_class.new(controller, action.to_sym, env).call
     else
-      Controller.new.error('Page not found', 404)
+      WebError.new.client_error('Page not found')
     end
   end
 

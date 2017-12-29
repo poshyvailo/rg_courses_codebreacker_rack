@@ -1,6 +1,7 @@
 .container {
     width: 90%;
     margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 body {
@@ -13,11 +14,39 @@ main {
     flex: 1 0 auto;
 }
 
-.footer-copyright {
+.footer {
+    background-color: #ee6e73;
+}
+
+.wrapper {
+    min-height: 400px;
+}
+
+.footer-copyright, .footer-copyright a  {
     font-weight: 300;
     color: #ffffff;
 }
 
-.menu .btn-large, .menu .btn {
+.game-menu .btn-large, .game-menu .btn {
     min-width: 200px;
+}
+
+.row.game-menu {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+.delimiter {
+    padding: 0 15px;
+    font-size: 18px;
+}
+
+#error h1 {
+    font-size: 25em;
+    color: #757575;
+}
+
+.img-valign {
+    vertical-align: middle;
+    margin-bottom: 0.75em;
 }

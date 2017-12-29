@@ -12,6 +12,19 @@
 </head>
 <body>
 
+<header>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="/" class="brand-logo center">Codebreaker</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="/game">Current Game</a></li>
+        <li><a href="/rules">Rules</a></li>
+        <li><a href="/statistic">Statistic</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
 <main class="container">
   <%= @template %>
 </main>
@@ -67,11 +80,13 @@
   </div>
 </div>
 
-<footer class="red lighten-2">
-  <div class="footer-copyright center-align">
-    <div class="container">
-      <p>© 2017 Vladimir Poshyvailo</p>
-    </div>
+<footer class="footer">
+  <div class="container">
+    © 2017 Vladimir Poshyvailo
+
+    <a class="grey-text text-lighten-4 right" href="https://github.com/poshyvailo/rg_courses_codebreacker_rack" target="_blank">
+      <img src="/images/github.png" width="24" class="img-valign"> Code on Github
+    </a>
   </div>
 </footer>
 </body>

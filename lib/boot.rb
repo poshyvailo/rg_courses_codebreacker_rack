@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib directory
 Dir[File.join(File.dirname(__dir__), 'lib', '*.rb')].each do |file|
   require file
@@ -17,11 +19,12 @@ class Setting
   VIEWS_PATH = File.join(APP_PATH, 'views').freeze
   TEMPLATE_PATH = File.join(VIEWS_PATH, 'templates').freeze
 
-  DEFAULT_LAYOUT = 'layout'.freeze
-  ERB_EXTENSION = '.html.erb'.freeze
+  DEFAULT_LAYOUT = 'layout'
+  ERB_EXTENSION = '.html.erb'
 
-  DEFAULT_CONTROLLER = 'main'.freeze
-  DEFAULT_ACTION = 'index'.freeze
+  DEFAULT_CONTROLLER = 'main'
+  DEFAULT_ACTION = 'index'
 
-  DEFAULT_ERROR_TEMPLATE = 'error'.freeze
+  DEFAULT_ERROR_PATH = File.join(VIEWS_PATH, 'errors').freeze
+  DEFAULT_ERROR_TEMPLATE = 'error'
 end
