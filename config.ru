@@ -3,9 +3,11 @@
 require 'pry'
 require 'bundler'
 require 'codebreacker'
-require './app'
-require './lib/router'
-require './lib/boot'
+require 'digest'
+require 'yaml'
+
+require_relative 'lib/boot'
+require_relative 'lib/codebreacker_web'
 
 require 'dotenv/load'
 

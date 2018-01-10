@@ -9,9 +9,9 @@ class Router
     if File.exist? controller_path
       class_name = "#{controller.capitalize}Controller"
       controller_class = Object.const_get(class_name, Class.new)
-      controller_class.new(controller, action.to_sym, env).call
+      controller_class.new(env, controller, action.to_sym).call
     else
-      WebError.new.client_error('Page not found')
+      Error.new(env).client_error('Page not found')
     end
   end
 

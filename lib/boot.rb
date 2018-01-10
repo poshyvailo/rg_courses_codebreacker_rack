@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # lib directory
-Dir[File.join(File.dirname(__dir__), 'lib', '*.rb')].each do |file|
+Dir[File.join(File.dirname(__dir__), 'lib', '**', '*.rb')].each do |file|
   require file
 end
 
@@ -14,6 +14,7 @@ class Setting
   ROOT_PATH = File.dirname(__dir__).freeze
   APP_PATH = File.join(ROOT_PATH, 'app').freeze
   LIB_PATH = File.join(ROOT_PATH, 'lib').freeze
+  STORAGE_PATH = File.join(ROOT_PATH, 'storage').freeze
 
   CONTROLLER_PATH = File.join(APP_PATH, 'controllers').freeze
   VIEWS_PATH = File.join(APP_PATH, 'views').freeze

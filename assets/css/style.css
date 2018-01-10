@@ -50,3 +50,32 @@ main {
     vertical-align: middle;
     margin-bottom: 0.75em;
 }
+
+#alert-message .close-button {
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+#alert-message .card-panel {
+    padding: 10px 25px;
+}
+
+#alert-message .message {
+    color: #FFFFFF
+}
+
+#alert-message .success {
+    background-color: #8bc34a;
+}
+
+#alert-message .error {
+    background-color: #ef5350;
+}
+
+#alert-message .warning {
+    background-color: #ffb74d;
+}
+
+nav ul li span.nav-text {
+    padding: 0 15px;
+}

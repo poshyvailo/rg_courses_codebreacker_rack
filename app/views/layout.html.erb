@@ -7,6 +7,8 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script type="text/javascript" src="/js/script.js"></script>
 
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" />
   <link type="text/css" rel="stylesheet" href="/css/font-awesome.min.css" />
   <link type="text/css" rel="stylesheet" href="/css/style.css" />
@@ -18,15 +20,54 @@
     <div class="nav-wrapper">
       <a href="/" class="brand-logo center">Codebreaker</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="/game">Current Game</a></li>
-        <li><a href="/rules">Rules</a></li>
-        <li><a href="/statistic">Statistic</a></li>
+        <li>
+          <a href="/game">Current Game</a>
+        </li>
+        <li>
+          <a href="/rules">Rules</a>
+        </li>
+        <li>
+          <a href="/statistic">Statistic</a>
+        </li>
+      </ul>
+      <ul class="right  hide-on-med-and-down">
+        <% if @request.current_user? %>
+          <li>
+            <span class="nav-text">Hello, <%= @request.session[:user].name %></span>
+          </li>
+          <li>
+            <a href="/logout">
+              <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+            </a>
+          </li>
+        <% else %>
+          <li>
+            <a href="/login">
+              <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+            </a>
+          </li>
+          <li>
+            <a href="/register">
+              <i class="fa fa-sign-out" aria-hidden="true"></i> Register
+            </a>
+          </li>
+        <% end %>
       </ul>
     </div>
   </nav>
 </header>
 
 <main class="container">
+  <% unless @request.flash_empty? %>
+    <div id="alert-message">
+      <% @request.get_flash.each do |item| %>
+        <div class="card-panel <%= item[:type] %>">
+          <span class="message"><%= item[:message] %></span>
+          <i class="pull-right material-icons close-button" onclick="$(this).parent('div').remove()">close</i>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   <%= @template %>
 </main>
 
@@ -84,7 +125,7 @@
 <footer class="footer">
   <div class="container">
     <span class="grey-text text-lighten-4">
-      © Vladimir Poshyvailo
+      © <%= Time.now.year %> Vladimir Poshyvailo
     </span>
     <span class="right">
       <a class="grey-text text-lighten-4 " href="https://github.com/poshyvailo/rg_courses_codebreacker_rack" target="_blank">

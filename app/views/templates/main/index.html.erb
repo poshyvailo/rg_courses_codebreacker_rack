@@ -5,8 +5,18 @@
     </span>
   </div>
   <div class="card-action">
+    <% if @request.current_user? %>
     <a href="/game/start" class="waves-effect waves-light btn-large">
       <strong>start game</strong>
     </a>
+    <% else %>
+      <a href="/login" class="waves-effect waves-light btn">
+        <strong>login</strong>
+      </a>
+      or
+      <a href="/register" class="waves-effect waves-light btn">
+        <strong>register</strong>
+      </a>
+      <% end %>
   </div>
 </div>
