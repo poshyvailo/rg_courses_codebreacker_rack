@@ -1,0 +1,29 @@
+<h2 class="center-align">Statistic</h2>
+<% Statistic.load.each_pair do | name, data | %>
+  <h4 class="center-align"><%= name.to_s %></h4>
+
+  <table class="bordered centered">
+    <thead>
+    <tr>
+      <th>Mode</th>
+      <th>Win</th>
+      <th>Lose</th>
+      <th>Last Game</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% data.each_pair do |mode, stat| %>
+      <% unless stat[:last_game].nil? %>
+        <tr>
+          <td><%= mode.to_s.capitalize %></td>
+          <td><%= stat[:win].to_s %></td>
+          <td><%= stat[:lose].to_s %></td>
+          <td><%= stat[:last_game].strftime("%d.%m.%Y %H:%M") %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
+</div>
