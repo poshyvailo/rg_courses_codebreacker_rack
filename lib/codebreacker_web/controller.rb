@@ -106,5 +106,17 @@ module Rack
     def current_user=(user)
       session[:user] = user
     end
+
+    def game?
+      session[:game].nil? ? false : true
+    end
+
+    def game
+      session[:game]
+    end
+
+    def game=(game)
+      session[:game] = game
+    end
   end
 end
