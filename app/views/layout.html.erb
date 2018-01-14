@@ -19,7 +19,7 @@
   <nav>
     <div class="nav-wrapper">
       <a href="/" class="brand-logo center">Codebreaker</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <ul id="nav-mobile" class="left">
         <li>
           <a href="/game/start" class="waves-effect waves-light btn">
             <%= @request.game? && @request.current_user? ? 'Continue Game' : 'Start game' %>
@@ -32,7 +32,7 @@
           <a href="/statistic">Statistic</a>
         </li>
       </ul>
-      <ul class="right  hide-on-med-and-down">
+      <ul class="right">
         <% if @request.current_user? %>
           <li>
             <span class="nav-text">Hello, <%= @request.session[:user].name %></span>

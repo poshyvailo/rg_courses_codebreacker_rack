@@ -8,6 +8,7 @@ require 'yaml'
 require 'dotenv/load'
 
 require_relative 'codebreacker_web'
+require_relative 'override'
 
 Bundler.require
 

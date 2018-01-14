@@ -48,15 +48,13 @@ module Rack
   end
 end
 
-module Codebreacker
-  # Override class Codebreacker::Statistic
-  class Statistic
-    def self.load
-      YAML.load_file(Setting::STATISTIC_FILE)
-    end
+# Override class Codebreacker::Statistic
+class Statistic
+  def self.load
+    YAML.load_file(Setting::STATISTIC_FILE)
+  end
 
-    def self.save(data)
-      File.write(Setting::STATISTIC_FILE, data.to_yaml)
-    end
+  def self.save(data)
+    File.write(Setting::STATISTIC_FILE, data.to_yaml)
   end
 end

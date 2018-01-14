@@ -1,40 +1,14 @@
 ---
-:Vova:
-  :easy:
-    :win: 1
-    :lose: 0
-    :last_game: 2017-12-17 15:05:38.000000000 +02:00
-  :normal:
-    :win: 3
-    :lose: 0
-    :last_game: 2017-12-17 15:05:38.000000000 +02:00
-  :hard:
-    :win: 0
-    :lose: 6
-    :last_game: 2017-12-17 15:05:38.000000000 +02:00
-:poshik:
+:test_user:
   :easy:
     :win: 0
     :lose: 0
-    :last_game: 
+    :last_game:
   :normal:
-    :win: 2
-    :lose: 33
-    :last_game: 2018-01-14 20:41:12.518655754 +02:00
-  :hard:
-    :win: 0
-    :lose: 2
-    :last_game: 2018-01-14 13:32:54.232946348 +02:00
-:test:
-  :easy:
     :win: 0
     :lose: 0
-    :last_game: 
-  :normal:
-    :win: 0
-    :lose: 1
-    :last_game: 2018-01-14 11:49:26.335597550 +02:00
+    :last_game:
   :hard:
     :win: 0
     :lose: 0
-    :last_game: 
+    :last_game:
