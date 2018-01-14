@@ -2,9 +2,6 @@
 
 # App class
 class App
-
-  attr_accessor :user
-
   def initialize
     @router = Router.new
   end

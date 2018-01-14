@@ -22,7 +22,7 @@
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li>
           <a href="/game/start" class="waves-effect waves-light btn">
-            <%= @request.game? ? 'Continue Game' : 'Start game' %>
+            <%= @request.game? && @request.current_user? ? 'Continue Game' : 'Start game' %>
           </a>
         </li>
         <li>

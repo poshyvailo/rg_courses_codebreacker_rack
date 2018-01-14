@@ -14,22 +14,19 @@ class Controller
     @header = {}
   end
 
-  def call(env = @env)
-    if class_method_exist?
-      if template_file_exist?
-        @body = send(action)
-        @body.is_a?(Rack::Response) ? @body : response
-      else
-        Error.new(env).server_error('Template not found')
-      end
-    else
-      redirect @controller
-    end
+  def call
+    return redirect @controller unless class_method_exist?
+    @body = public_send(action)
+    @body.is_a?(Rack::Response) ? @body : response
   end
 
   def render(template = @action.to_s, layout = Setting::DEFAULT_LAYOUT)
-    @template = render_template template
-    render_layout layout
+    if template_file_exist? template
+      @template = render_template template
+      render_layout layout
+    else
+      Error.new(@env).server_error('Template not found')
+    end
   end
 
   private
@@ -38,8 +35,8 @@ class Controller
     respond_to? @action
   end
 
-  def template_file_exist?
-    File.exist? template_file(@action.to_s)
+  def template_file_exist?(template)
+    File.exist? template_file(template)
   end
 
   def render_layout(layout = Setting::DEFAULT_LAYOUT)
@@ -70,53 +67,6 @@ class Controller
   def redirect(to = '')
     Rack::Response.new do |response|
       response.redirect("/#{to}")
-    end
-  end
-end
-
-module Rack
-  class Request
-    def set_flash(type, message)
-      session[:flash_message] = [] if flash_empty?
-      session[:flash_message] << { type: type, message: message }
-    end
-
-    def flash_empty?
-      session[:flash_message].nil? || session[:flash_message] == []
-    end
-
-    def get_flash
-      flash = session[:flash_message]
-      clear_flash
-      flash
-    end
-
-    def clear_flash
-      session[:flash_message] = nil
-    end
-
-    def current_user?
-      session[:user].nil? ? false : true
-    end
-
-    def current_user
-      session[:user]
-    end
-
-    def current_user=(user)
-      session[:user] = user
-    end
-
-    def game?
-      session[:game].nil? ? false : true
-    end
-
-    def game
-      session[:game]
-    end
-
-    def game=(game)
-      session[:game] = game
     end
   end
 end

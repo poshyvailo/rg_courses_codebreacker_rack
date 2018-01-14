@@ -20,6 +20,6 @@ class Crypto
     decipher.iv = ENV['SECRET_IV']
     str = Base64.decode64 str
     str = decipher.update(str) + decipher.final
-    Marshal.load(str)
+    Marshal.load str
   end
 end

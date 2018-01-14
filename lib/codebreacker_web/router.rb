@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-# Router
+# Router class
 class Router
   def route(env)
     controller, action = parse_path env['REQUEST_PATH']
-    file = "#{controller}_controller.rb"
-    controller_path = File.join(Setting::CONTROLLER_PATH, file)
-    if File.exist? controller_path
-      class_name = "#{controller.capitalize}Controller"
-      controller_class = Object.const_get(class_name, Class.new)
-      controller_class.new(env, controller, action.to_sym).call
+    if File.exist? controller_file controller
+      controller_class(controller).new(env, controller, action.to_sym).call
     else
       Error.new(env).client_error('Page not found')
     end
@@ -20,5 +16,15 @@ class Router
     controller ||= Setting::DEFAULT_CONTROLLER
     action ||= Setting::DEFAULT_ACTION
     [controller, action]
+  end
+
+  private
+
+  def controller_file(controller_name)
+    File.join(Setting::CONTROLLER_PATH, "#{controller_name}_controller.rb")
+  end
+
+  def controller_class(controller_name)
+    Object.const_get("#{controller_name.capitalize}Controller", Class.new)
   end
 end

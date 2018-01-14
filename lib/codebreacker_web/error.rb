@@ -4,19 +4,18 @@ require_relative 'controller'
 
 # Error class
 class Error < Controller
-  def client_error(message = nil, status_code = 404, header = {})
-    render_error message, status_code, header
+  def client_error(message = nil, status_code = 404)
+    render_error message, status_code
   end
 
   def server_error(message = nil, status_code = 500)
-    render_error message, status_code, header
+    render_error message, status_code
   end
 
   private
 
   def render_error(message = nil, status_code = 500, header = {})
     message ||= 'Page not found'
-    # binding.pry
     @status_code = status_code
     @header = header
     @message = message
