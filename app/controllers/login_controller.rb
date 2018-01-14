@@ -19,6 +19,7 @@ class LoginController < Controller
 
   def load_unfinished_game(login)
     data = UserGames.load login
+    return if data.nil?
     @request.game = data[:game]
     @request.session[:total_attempts] = data[:total_attempts]
     @request.session[:total_hints] = data[:total_hints]
