@@ -2,7 +2,7 @@
 <ul class="collapsible" data-collapsible="accordion">
 
 
-<% Statistic.load.each_pair do | name, data | %>
+<% @statistic.each_pair do | name, data | %>
   <li>
     <div class="collapsible-header"><i class="material-icons">person</i><%= name.to_s %></div>
     <div class="collapsible-body">

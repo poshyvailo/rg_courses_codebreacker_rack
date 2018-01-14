@@ -1,27 +1,22 @@
-require_relative '../../lib/codebreacker_web/controller'
+# frozen_string_literal: true
 
+# Register controller
 class RegisterController < Controller
+  # /register
   def index
-    if @request.post?
-      login = @request.params['login']
-      password = @request.params['password']
-      password_confirm = @request.params['password_confirm']
+    return render unless @request.post?
+    login = @request.params['login']
+    password = @request.params['password']
+    password_confirm = @request.params['password_confirm']
 
-      unless password_equals? password, password_confirm
-        @request.set_flash'error', 'Invalid password'
-      end
-
-      if user_exists? login
-        @request.set_flash'error', 'User exists'
-      end
-
-      if @request.flash_empty?
-        @request.current_user = create_user(login, password)
-        @request.set_flash 'success', 'User registered'
-        return redirect
-      end
+    return error_message 'User exists' if user_exists? login
+    unless password_equals? password, password_confirm
+      return error_message 'Invalid password'
     end
-    render
+
+    @request.current_user = create_user(login, password)
+    @request.set_flash 'success', 'User registered'
+    redirect
   end
 
   private
@@ -42,4 +37,8 @@ class RegisterController < Controller
     User.new.load_user(login)
   end
 
+  def error_message(message)
+    @request.set_flash 'error', message
+    render
+  end
 end

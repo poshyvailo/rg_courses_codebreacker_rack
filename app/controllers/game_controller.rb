@@ -15,6 +15,7 @@ class GameController < Controller
     render
   end
 
+  # /game/start
   def start
     return redirect unless @request.current_user?
     return redirect 'game' if @request.game?
@@ -22,6 +23,7 @@ class GameController < Controller
     render
   end
 
+  # /game/hint
   def hint
     return redirect 'game' unless @request.post?
     return error_message 'No hint' if @request.game.hints.zero?
