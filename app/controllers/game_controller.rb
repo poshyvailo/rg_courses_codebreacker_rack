@@ -1,29 +1,30 @@
+# frozen_string_literal: true
+
+# Game controller
 class GameController < Controller
+  # /game
   def index
+    return redirect 'game/start' unless @request.game?
     if @request.post?
-      return redirect 'game/start' unless @request.game?
       guess_code = @request.params['guess_code']
-      return invalid_guess_message unless @request.game.valid_guess? guess_code
+      return error_message 'Invalid guess code' unless valid_code? guess_code
       make_guess guess_code
       return game_lose if game_lose?
       return game_win if game_win?
     end
-    return redirect 'game/start' unless @request.game?
     render
   end
 
   def start
-    if @request.current_user?
-      return redirect 'game' if @request.game?
-      return start_game if @request.post?
-      return render
-    end
-    redirect
+    return redirect unless @request.current_user?
+    return redirect 'game' if @request.game?
+    return start_game if @request.post?
+    render
   end
 
   def hint
     return redirect 'game' unless @request.post?
-    return no_hints_message if @request.game.hints.zero?
+    return error_message 'No hint' if @request.game.hints.zero?
     make_hint
     redirect 'game'
   end
@@ -31,7 +32,6 @@ class GameController < Controller
   private
 
   def start_game
-    # binding.pry
     player = @request.current_user.name
     game_mode = @request.params['mode']
     @request.game = Game.new(player, game_mode.to_sym)
@@ -39,6 +39,10 @@ class GameController < Controller
     @request.session[:total_hints] = @request.game.hints
     save_game_stat
     redirect 'game'
+  end
+
+  def valid_code?(guess_code)
+    @request.game.valid_guess? guess_code
   end
 
   def make_guess(guess_code)
@@ -53,13 +57,8 @@ class GameController < Controller
     save_game_stat
   end
 
-  def invalid_guess_message
-    @request.set_flash 'error', 'Invalid guess code'
-    redirect 'game'
-  end
-
-  def no_hints_message
-    @request.set_flash 'error', 'No hint'
+  def error_message(message)
+    @request.set_flash 'error', message
     redirect 'game'
   end
 
@@ -85,7 +84,6 @@ class GameController < Controller
     @request.session[:total_hints] = nil
     @request.game = nil
     save_game_stat
-    binding.pry
   end
 
   def game_win

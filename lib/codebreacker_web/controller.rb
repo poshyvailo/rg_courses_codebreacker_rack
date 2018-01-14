@@ -31,20 +31,18 @@ class Controller
 
   private
 
+  def response
+    Rack::Response.new([@body], @status_code, @header).finish
+  end
+
+  def redirect(to = '')
+    Rack::Response.new do |response|
+      response.redirect("/#{to}")
+    end
+  end
+
   def class_method_exist?
     respond_to? @action
-  end
-
-  def template_file_exist?(template)
-    File.exist? template_file(template)
-  end
-
-  def render_layout(layout = Setting::DEFAULT_LAYOUT)
-    _render layout_file(layout)
-  end
-
-  def render_template(template)
-    _render template_file(template)
   end
 
   def layout_file(layout)
@@ -56,17 +54,19 @@ class Controller
     File.join(Setting::TEMPLATE_PATH, @controller, file)
   end
 
+  def template_file_exist?(template)
+    File.exist? template_file template
+  end
+
+  def render_layout(layout = Setting::DEFAULT_LAYOUT)
+    _render layout_file(layout)
+  end
+
+  def render_template(template)
+    _render template_file(template)
+  end
+
   def _render(temp)
     ERB.new(File.read(temp)).result(binding)
-  end
-
-  def response
-    Rack::Response.new([@body], @status_code, @header).finish
-  end
-
-  def redirect(to = '')
-    Rack::Response.new do |response|
-      response.redirect("/#{to}")
-    end
   end
 end
