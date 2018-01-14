@@ -8,6 +8,8 @@ class Setting
   STORAGE_PATH = File.join(ROOT_PATH, 'storage').freeze
 
   USER_GAMES_FILE = File.join(STORAGE_PATH, 'user_games.yml').freeze
+  STATISTIC_FILE = File.join(STORAGE_PATH, 'statistic.yml').freeze
+  USERS_FILE = File.join(STORAGE_PATH, 'users.yml').freeze
 
   CONTROLLER_PATH = File.join(APP_PATH, 'controllers').freeze
   VIEWS_PATH = File.join(APP_PATH, 'views').freeze

@@ -14,23 +14,20 @@ class User
   end
 
   def save
-    file = Setting::STORAGE_PATH + '/users.yml'
-    record = "#{@login}:#{@name}:#{@password_hash}"
-    File.open(file, 'a+') do |file|
-      file.puts record
+    File.open(Setting::USERS_FILE, 'a+') do |file|
+      file.puts "#{@login}:#{@name}:#{@password_hash}"
     end
     self
   end
 
   def load_user(login)
     current_user = all_users.find { |user| user[:login] == login.downcase }
-    unless current_user.nil?
-      @login = current_user[:login]
-      @name = current_user[:name]
-      @password_hash = current_user[:password_hash]
-      UserGames.load @login
-      self
-    end
+    return if current_user.nil?
+    @login = current_user[:login]
+    @name = current_user[:name]
+    @password_hash = current_user[:password_hash]
+    UserGames.load @login
+    self
   end
 
   def password_equal?(password)
@@ -41,7 +38,7 @@ class User
 
   def all_users
     users = []
-    File.open(Setting::STORAGE_PATH + '/users.yml').each_line do |line|
+    File.open(Setting::USERS_FILE).each_line do |line|
       login, name, password_hash = line.chomp.split(':')
       users.push(login: login, name: name, password_hash: password_hash)
     end
@@ -51,5 +48,4 @@ class User
   def md5(string)
     Digest::MD5.hexdigest(Digest::MD5.hexdigest(string))
   end
-
 end

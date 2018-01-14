@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CodebreackerWeb module
 module CodebreackerWeb
   autoload :App, 'codebreacker_web/app'
   autoload :Router, 'codebreacker_web/router'

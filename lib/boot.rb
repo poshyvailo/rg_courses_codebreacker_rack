@@ -9,6 +9,8 @@ require 'dotenv/load'
 
 require_relative 'codebreacker_web'
 
+Bundler.require
+
 # lib directory
 Dir[File.join(File.dirname(__dir__), 'lib', '**', '*.rb')].each do |file|
   require file

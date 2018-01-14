@@ -2,8 +2,6 @@
 
 require_relative 'lib/boot'
 
-Bundler.require
-
 use Rack::Reloader
 use Rack::Static,
     urls: %w[/js /css /fonts /images],

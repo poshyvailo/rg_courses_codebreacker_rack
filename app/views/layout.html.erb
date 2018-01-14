@@ -60,9 +60,9 @@
 </header>
 
 <main class="container">
-  <% unless @request.flash_empty? %>
+  <% unless @request.flash? %>
     <div id="alert-message">
-      <% @request.get_flash.each do |item| %>
+      <% @request.flash.each do |item| %>
         <div class="card-panel <%= item[:type] %>">
           <span class="message"><%= item[:message] %></span>
           <i class="pull-right material-icons close-button" onclick="$(this).parent('div').remove()">close</i>
