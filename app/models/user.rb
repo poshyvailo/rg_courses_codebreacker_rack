@@ -28,6 +28,7 @@ class User
       @login = current_user[:login]
       @name = current_user[:name]
       @password_hash = current_user[:password_hash]
+      UserGames.load @login
       self
     end
   end

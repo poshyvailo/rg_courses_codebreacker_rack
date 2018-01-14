@@ -16,6 +16,8 @@ class Setting
   LIB_PATH = File.join(ROOT_PATH, 'lib').freeze
   STORAGE_PATH = File.join(ROOT_PATH, 'storage').freeze
 
+  USER_GAMES_FILE = File.join(STORAGE_PATH, 'user_games.yml').freeze
+
   CONTROLLER_PATH = File.join(APP_PATH, 'controllers').freeze
   VIEWS_PATH = File.join(APP_PATH, 'views').freeze
   TEMPLATE_PATH = File.join(VIEWS_PATH, 'templates').freeze
