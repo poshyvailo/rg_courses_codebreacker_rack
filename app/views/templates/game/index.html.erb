@@ -1,1 +1,82 @@
-<h1>jjjj</h1>
+<div class="row">
+  <div class="col l6 offset-l3 s12 z-depth-1">
+    <div class="row">
+      <div class="col s12 red lighten-2">
+        <h1 class="center-align white-text">Codebreaker</h1>
+      </div>
+    </div>
+    <form method="post">
+      <div class="row">
+        <div class="col s12">
+          <p class="center-align">Guess code with number from 1 to 6</p>
+          <div class="input-field col s6 offset-s3">
+            <input id="guess_code" name="guess_code" type="number" class="center-align" max="6666">
+            <label for="guess_code">Guess code</label>
+          </div>
+        </div>
+      </div>
+      <div class="row menu">
+        <div class="col s6 center-align">
+          <button type="submit" class="waves-effect waves-light btn green darken-3"><strong>submit</strong></button>
+        </div>
+        <div class="col s6 center-align">
+            <button formaction="/game/hint" type="submit" class="waves-effect waves-light btn">hint</button>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col s12 center-align">
+        <p>Attempts: <%= @request.game.attempts %>/<%= @request.session[:total_attempts] %></p>
+        <p>Hints: <%= @request.game.hints %>/<%= @request.session[:total_hints] %></p>
+      </div>
+    </div>
+    <% unless @request.session[:hints].nil? %>
+      <div class="row">
+        <div class="col s12 history">
+          <h5 class="center-align">Hints:</h5>
+          <table class="centered">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Hint</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @request.session[:hints].each_with_index do |hint, index| %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= hint %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+    <% unless @request.session[:history].nil? %>
+      <div class="row">
+        <div class="col s12 history">
+          <h5 class="center-align">Attempts:</h5>
+          <table class="centered">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Guess</th>
+              <th>Matching</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @request.session[:history].each_with_index do |history, index| %>
+              <tr>
+                <td><%= index+1 %></td>
+                <td><%= history[0] %></td>
+                <td><%= history[1] %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
