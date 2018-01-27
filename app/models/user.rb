@@ -21,6 +21,7 @@ class User
   end
 
   def load_user(login)
+    return if login.nil?
     current_user = all_users.find { |user| user[:login] == login.downcase }
     return if current_user.nil?
     @login = current_user[:login]
@@ -31,6 +32,7 @@ class User
   end
 
   def password_equal?(password)
+    return false if password.nil?
     @password_hash == md5(password)
   end
 

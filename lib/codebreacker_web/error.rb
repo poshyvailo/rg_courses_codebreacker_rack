@@ -14,10 +14,10 @@ class Error < Controller
 
   private
 
-  def render_error(message = nil, status_code = 500, header = {})
+  def render_error(message = nil, status_code = 500)
     message ||= 'Page not found'
     @status_code = status_code
-    @header = header
+    @header = {}
     @message = message
     @body = render Setting::DEFAULT_ERROR_TEMPLATE
     response

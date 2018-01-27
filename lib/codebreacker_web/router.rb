@@ -3,7 +3,7 @@
 # Router class
 class Router
   def route(env)
-    controller, action = parse_path env['REQUEST_PATH']
+    controller, action = parse_path env['PATH_INFO']
     if File.exist? controller_file controller
       controller_class(controller).new(env, controller, action.to_sym).call
     else

@@ -12,6 +12,8 @@ class GameController < Controller
       return game_lose if game_lose?
       return game_win if game_win?
     end
+    @attempts_data = "#{@request.game.attempts} / #{@request.session[:total_attempts]}"
+    @hints_data = "#{@request.game.hints} / #{@request.session[:total_hints]}"
     render
   end
 
@@ -80,10 +82,9 @@ class GameController < Controller
   def end_game
     save_game_result
     @secret_code = @request.game.secret_code
-    @request.session[:history] = nil
-    @request.session[:hints] = nil
-    @request.session[:total_attempts] = nil
-    @request.session[:total_hints] = nil
+    %i[history hints total_attempts total_hints].each do |key|
+      @request.session[key] = nil
+    end
     @request.game = nil
     save_game_stat
   end

@@ -26,8 +26,10 @@
     </form>
     <div class="row">
       <div class="col s12 center-align">
-        <p>Attempts: <%= @request.game.attempts %>/<%= @request.session[:total_attempts] %></p>
-        <p>Hints: <%= @request.game.hints %>/<%= @request.session[:total_hints] %></p>
+        <!--<p>Attempts: <%# @request.game.attempts %>/<%# @request.session[:total_attempts] %></p>-->
+        <p>Attempts: <%= @attempts_data %></p>
+        <!--<p>Hints: <%# @request.game.hints %>/<%# @request.session[:total_hints] %></p>-->
+        <p>Hints: <%= @hints_data %></p>
       </div>
     </div>
     <% unless @request.session[:hints].nil? %>

@@ -10,7 +10,13 @@ gem 'codebreacker',
 gem 'dotenv', '~> 2.2', '>= 2.2.1'
 gem 'puma'
 gem 'rack', '~> 2.0'
-gem 'rack-contrib'
 
-gem 'pry'
-gem 'rubocop'
+
+group :test, :development do
+  gem 'pry'
+  gem 'rack-test'
+  gem 'rspec', '~> 3.7'
+  gem 'rubocop'
+end
+
+

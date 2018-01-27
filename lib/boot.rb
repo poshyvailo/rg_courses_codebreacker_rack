@@ -5,6 +5,8 @@ require 'bundler'
 require 'codebreacker'
 require 'digest'
 require 'yaml'
+require 'openssl'
+require 'base64'
 require 'dotenv/load'
 
 require_relative 'codebreacker_web'

@@ -21,10 +21,9 @@ class LoginController < Controller
     data = UserGames.load login
     return if data.nil?
     @request.game = data[:game]
-    @request.session[:total_attempts] = data[:total_attempts]
-    @request.session[:total_hints] = data[:total_hints]
-    @request.session[:history] = data[:history]
-    @request.session[:hints] = data[:hints]
+    %i[total_attempts total_hints history hints].each do |key|
+      @request.session[key] = data[key]
+    end
   end
 
   def error_message(message)

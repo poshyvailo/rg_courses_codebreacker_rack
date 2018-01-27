@@ -32,7 +32,7 @@ class Controller
   private
 
   def response
-    Rack::Response.new([@body], @status_code, @header).finish
+    Rack::Response.new([@body], @status_code, @header)
   end
 
   def redirect(to = '')

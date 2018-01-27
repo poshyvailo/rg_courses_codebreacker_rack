@@ -3,12 +3,12 @@
   :easy:
     :win: 0
     :lose: 0
-    :last_game:
+    :last_game: 
   :normal:
     :win: 0
-    :lose: 0
-    :last_game:
+    :lose: 2
+    :last_game: 2018-01-15 00:11:44.545250817 +02:00
   :hard:
     :win: 0
     :lose: 0
-    :last_game:
+    :last_game: 
